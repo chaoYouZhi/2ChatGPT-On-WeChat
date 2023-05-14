@@ -269,17 +269,24 @@ export class ChatGPTBot {
     }
   }
 
-  // handle message for customized task handlers
-  async onCustimzedTask(message: Message) {
-    // e.g. if a message starts with "麦扣", the bot sends "🤖️：call我做咩啊大佬!"
-    const myKeyword = "麦扣";
-    if (message.text().includes(myKeyword)) {
-      const myTaskContent = `回复所有含有"${myKeyword}"的消息`;
-      const myReply = "🤖️：call我做咩啊大佬";
-      await message.say(myReply);
-      console.log(`🎯 Customized task triggered: ${myTaskContent}`);
-      console.log(`🤖️ ChatGPT says: ${myReply}`);
-      return;
+async onCustomizedTask(message: Message): Promise<boolean> {
+  const myKeyword1 = "怀山";
+  const myKeyword2 = "美食"; // 新增的关键字
+  if (message.text().includes(myKeyword1)) {
+    const myTaskContent = `回复所有含有"${myKeyword1}"的消息`;
+    const myReply = "bingo：bento.me/mos 请进😝，里面是我的一些数字信息";
+    await message.say(myReply);
+    console.log(`🎯 Customized task triggered: ${myTaskContent}`);
+    console.log(`🤖️ ChatGPT says: ${myReply}`);
+    return true; // 消息已被处理
+  } else if (message.text().includes(myKeyword2)) { // 新增的条件语句
+    const myTaskContent = `回复所有含有"${myKeyword2}"的消息`;
+    const myReply = "这是我推荐的美食地图：www.foodmaps.com";
+    await message.say(myReply);
+    console.log(`🎯 Customized task triggered: ${myTaskContent}`);
+    console.log(`🤖️ ChatGPT says: ${myReply}`);
+    return true; // 消息已被处理
     }
+  return false; // 消息未被处理
   }
 }
