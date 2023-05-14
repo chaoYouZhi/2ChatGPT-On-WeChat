@@ -26,17 +26,21 @@ async function main() {
       await chatGPTBot.startGPTBot();
     })
     // message handler
-    .on("message", async (message: any) => {
-      try {
-        console.log(`📨 ${message}`);
-        // handle message for customized task handlers
-        await chatGPTBot.onCustimzedTask(message);
-        // handle message for chatGPT bot
-        await chatGPTBot.onMessage(message);
-      } catch (e) {
-        console.error(`❌ ${e}`);
-      }
-    });
+   .on("message", async (message: any) => {
+  try {
+    console.log(`📨 ${message}`);
+    // handle message for customized task handlers
+    const isHandled = await chatGPTBot.onCustomizedTask(message);
+    // 如果消息已经被处理，就不再调用 ChatGPT
+    if (!isHandled) {
+      // handle message for chatGPT bot
+      await chatGPTBot.onMessage(message);
+    }
+  } catch (e) {
+    console.error(`❌ ${e}`);
+  }
+});
+
 
   try {
     await weChatBot.start();
