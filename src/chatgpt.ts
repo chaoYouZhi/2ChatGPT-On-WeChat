@@ -270,6 +270,7 @@ export class ChatGPTBot {
   }
 
 async onCustomizedTask(message: Message): Promise<boolean> {
+  console.log("onCustomizedTask is called"); 
   const myKeyword1 = "怀山";
   const myKeyword2 = "美食"; // 新增的关键字
   if (message.text().includes(myKeyword1)) {
